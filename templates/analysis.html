@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Data Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .header, .footer {
+            background-color: #28a745;
+            color: white;
+        }
+        .summary-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table thead {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header class="header py-3">
+        <div class="container">
+            <h1>Global Temperature Data Analysis</h1>
+        </div>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="/">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analysis">Analysis</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="summary-section">
+            <h2 class="mb-3">Summary Statistics</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <p><strong>Average Anomaly:</strong> {{ average_anomaly }}°C</p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Maximum Anomaly:</strong> {{ max_anomaly }}°C</p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Minimum Anomaly:</strong> {{ min_anomaly }}°C</p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>Trend:</strong> {{ trend }}°C/year</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="mb-3">Top Ten Anomalies</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Anomaly (°C)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in top_ten_anomalies %}
+                <tr>
+                    <td>{{ record.year }}</td>
+                    <td>{{ record.anomaly }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="mb-3">Bottom Ten Anomalies</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Anomaly (°C)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in bottom_ten_anomalies %}
+                <tr>
+                    <td>{{ record.year }}</td>
+                    <td>{{ record.anomaly }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/" class="btn btn-success mt-4">Back to Home</a>
+    </div>
+
+    <footer class="footer py-3 mt-4">
+        <div class="container text-center">
+            <p>&copy; {{ current_year }} Global Temperature Data Analysis. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGo6uWk7PeqwmhxqS/5aQ4U8ZrPbGffX8n+ATd/OB5x8xhihV3Y" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script>
+        const currentYearElement = document.querySelector('#current-year');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
+    </script>
+</body>
+</html>

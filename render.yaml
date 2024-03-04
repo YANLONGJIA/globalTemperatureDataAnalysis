@@ -1,0 +1,10 @@
+services:
+- type: web
+  name: Temp_Records
+  env: python
+  plan: starter
+  buildCommand: pip install -r requirements.txt
+  startCommand: python app.py
+  envVars:
+  - key: FLASK_ENV
+    value: production
